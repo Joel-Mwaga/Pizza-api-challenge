@@ -1,10 +1,12 @@
 from flask import Blueprint, request, jsonify
+from server.app import db
 from server.models.restaurant_pizza import RestaurantPizza
-from server import db
+from server.models.pizza import Pizza
+from server.models.restaurant import Restaurant
 
-restaurant_pizza_bp = Blueprint('restaurant_pizza', __name__)
+bp = Blueprint('restaurant_pizzas', __name__, url_prefix='/restaurant_pizzas')
 
-@restaurant_pizza_bp.route('/restaurant_pizzas', methods=['POST'])
+@bp.route('', methods=['POST'])
 def create_restaurant_pizza():
     data = request.get_json()
     price = data.get('price')
