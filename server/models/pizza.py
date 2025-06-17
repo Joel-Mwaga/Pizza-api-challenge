@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from server.app import db
 
 db = SQLAlchemy()
 
@@ -9,4 +10,7 @@ class Pizza(db.Model):
     name = db.Column(db.String, nullable=False)
     ingredients = db.Column(db.String, nullable=False)
 
-    restaurant_pizzas = db.relationship('RestaurantPizza', back_populates='pizza', cascade='all, delete-orphan')
+    restaurant_pizzas = db.relationship(
+        "RestaurantPizza",  # Use string, not class
+        backref="pizza"
+    )
