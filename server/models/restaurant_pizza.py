@@ -1,7 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
-from server.app import db
-
-db = SQLAlchemy()
+from server.extensions import db
 
 class RestaurantPizza(db.Model):
     __tablename__ = 'restaurant_pizzas'
@@ -11,7 +8,7 @@ class RestaurantPizza(db.Model):
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'), nullable=False)
     pizza_id = db.Column(db.Integer, db.ForeignKey('pizzas.id'), nullable=False)
 
-    restaurant = db.relationship('Restaurant', back_populates='restaurant_pizzas', cascade='all, delete-orphan')
+    restaurant = db.relationship('Restaurant', back_populates='restaurant_pizzas')
     pizza = db.relationship('Pizza', back_populates='restaurant_pizzas')
 
     def __init__(self, price, restaurant_id, pizza_id):

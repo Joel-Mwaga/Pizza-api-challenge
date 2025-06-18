@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from server.extensions import db
 
-db = SQLAlchemy()
 migrate = Migrate()
 
 def create_app():
@@ -11,9 +11,12 @@ def create_app():
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.init_app(app)
+
+    # Import models so SQLAlchemy knows about them
+    from server.models import Restaurant, Pizza, RestaurantPizza
+
     migrate.init_app(app, db)
 
-    # Register blueprints here
     from server.controllers.restaurant_controller import bp as restaurant_bp
     from server.controllers.pizza_controller import bp as pizza_bp
     from server.controllers.restaurant_pizza_controller import bp as restaurant_pizza_bp

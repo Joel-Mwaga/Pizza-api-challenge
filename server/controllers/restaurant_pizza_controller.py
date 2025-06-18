@@ -1,12 +1,12 @@
 from flask import Blueprint, request, jsonify
-from server.app import db
+from server.extensions import db
 from server.models.restaurant_pizza import RestaurantPizza
 from server.models.pizza import Pizza
 from server.models.restaurant import Restaurant
 
-bp = Blueprint('restaurant_pizzas', __name__, url_prefix='/restaurant_pizzas')
+restaurant_pizza_bp = Blueprint('restaurant_pizzas', __name__, url_prefix='/restaurant_pizzas')
 
-@bp.route('', methods=['POST'])
+@restaurant_pizza_bp.route('/', methods=['POST'])
 def create_restaurant_pizza():
     data = request.get_json()
     price = data.get('price')
@@ -37,3 +37,5 @@ def create_restaurant_pizza():
             "address": new_restaurant_pizza.restaurant.address
         }
     }), 201
+
+__all__ = ['restaurant_pizza_bp']
