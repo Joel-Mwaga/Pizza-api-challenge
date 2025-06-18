@@ -4,7 +4,7 @@ from server.models.pizza import Pizza
 from server.models.restaurant_pizza import RestaurantPizza
 from server.extensions import db
 
-restaurant_bp = Blueprint('restaurant_bp', __name__)
+restaurant_bp = Blueprint('restaurant_bp', __name__ , url_prefix='/restaurants')
 
 @restaurant_bp.route('/', methods=['GET'])
 def get_restaurants():
